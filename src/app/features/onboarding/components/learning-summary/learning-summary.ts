@@ -10,6 +10,7 @@ import {
 
 import { isPlatformBrowser } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 interface Comment {
   id: string;
@@ -58,11 +59,12 @@ export class LearningSummary implements OnInit, OnDestroy {
   isBrowser = false;
 
   // Preserve message handler reference
-  private messageHandler = this.handleIframeMessages.bind(this);
+  private readonly messageHandler = this.handleIframeMessages.bind(this);
 
   constructor(
     @Inject(PLATFORM_ID) private readonly platformId: Object,
-    private readonly sanitizer: DomSanitizer
+    private readonly sanitizer: DomSanitizer,
+    private readonly router: Router
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
@@ -241,6 +243,7 @@ export class LearningSummary implements OnInit, OnDestroy {
     if (confirm('Are you ready to deploy this demo?')) {
       console.log('Deploy confirmed');
     }
+    this.router.navigate(['onboarding/step-4']);
   }
 
   submitNote(): void {

@@ -46,7 +46,7 @@ export class ProductDataFeed {
       // Clear success message after 3 seconds
       setTimeout(() => {
         this.statusMessage = null;
-        this.router.navigate(['onboarding/personalization']);
+        this.router.navigate(['onboarding/step-2']);
       }, 3000);
     }, 2000);
   }

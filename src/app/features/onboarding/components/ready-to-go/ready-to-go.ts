@@ -189,7 +189,7 @@ export class ReadyToGo implements OnInit {
    * Navigate to full analytics dashboard
    */
   viewFullDashboard(): void {
-    this.router.navigate(['/dashboard/analytics']);
+    this.router.navigate(['/dashboard']);
   }
 
   /**

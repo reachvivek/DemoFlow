@@ -71,7 +71,7 @@ export class PersonalizationChat implements OnInit {
     setTimeout(() => {
       this.isLoading = false;
       // Navigate to demo page
-      // this.router.navigate(['/demo']);
+      this.router.navigate(['onboarding/step-3']);
     }, 2000);
   }
 
@@ -167,11 +167,7 @@ export class PersonalizationChat implements OnInit {
    * Validates if the form has required fields filled
    */
   isFormValid(): boolean {
-    return !!(
-      this.formData.idealCustomer.trim() &&
-      this.formData.pricingModel.trim() &&
-      this.formData.commonObjections.trim()
-    );
+    return true;
   }
 
   /**
@@ -261,6 +257,6 @@ export class PersonalizationChat implements OnInit {
   }
 
   handleGoBack() {
-    this.router.navigate(['onboarding/product-data']);
+    this.router.navigate(['onboarding/step-3']);
   }
 }

@@ -11,7 +11,7 @@ export class WelcomeScreen {
   constructor(private readonly router: Router) {}
   handleGetStarted() {
     // Your navigation logic
-    this.router.navigate(['onboarding/product-data']);
+    this.router.navigate(['onboarding/step-1']);
   }
 
   handleLogin() {

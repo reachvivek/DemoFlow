@@ -15,6 +15,13 @@ const routes: Routes = [
         (m) => m.OnboardingModule
       ),
   },
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./features/dashboard/dashboard-module').then(
+        (m) => m.DashboardModule
+      ),
+  },
   { path: '**', redirectTo: '/landing', pathMatch: 'full' },
 ];
 

@@ -19,22 +19,22 @@ const routes: Routes = [
       },
       { path: 'welcome', component: WelcomeScreen },
       {
-        path: 'product-data',
+        path: 'step-1',
         component: ProductDataFeed,
         data: { step: 2, title: 'Feed Me Your Product Data' },
       },
       {
-        path: 'personalization',
+        path: 'step-2',
         component: PersonalizationChat,
         data: { step: 3, title: 'Q&A Personalization Chat' },
       },
       {
-        path: 'review',
+        path: 'step-3',
         component: LearningSummary,
         data: { step: 4, title: "Let Me Show You What I've Learned" },
       },
       {
-        path: 'deploy',
+        path: 'step-4',
         component: ReadyToGo,
         data: { step: 5, title: "You're Ready to Go Live!" },
       },

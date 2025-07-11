@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 interface DemoStep {
   id: string;
@@ -270,7 +271,7 @@ export class Landing implements OnInit, OnDestroy {
     },
   ];
 
-  constructor() {}
+  constructor(private readonly router: Router) {}
 
   ngOnInit(): void {
     this.initializeAnimations();
@@ -793,4 +794,8 @@ export class Landing implements OnInit, OnDestroy {
       { label: 'Privacy', href: '#' },
     ],
   };
+
+  startOnboarding() {
+    this.router.navigate(['onboarding']);
+  }
 }

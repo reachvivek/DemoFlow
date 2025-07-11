@@ -1,0 +1,372 @@
+<!-- Demo Genie Step 3 - Interactive Demo Screen -->
+<div
+  class="min-h-screen bg-gradient-to-br from-blue-50 via-green-50 to-emerald-50 flex items-center justify-center p-5"
+>
+  <div class="main-container flex flex-col xl:flex-row gap-6 max-w-7xl w-full">
+    <!-- Demo Viewer Container -->
+    <div
+      class="demo-viewer-container bg-white rounded-3xl shadow-2xl p-8 flex-1 relative overflow-hidden"
+    >
+      <!-- Top gradient border -->
+      <div
+        class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 rounded-t-3xl"
+      ></div>
+
+      <!-- Floating background elements -->
+      <div
+        class="floating-elements absolute inset-0 pointer-events-none overflow-hidden"
+      >
+        <div
+          class="floating-element absolute w-5 h-5 bg-gradient-to-br from-green-400 to-blue-400 rounded-full opacity-10 top-1/4 left-1/4"
+        ></div>
+        <div
+          class="floating-element absolute w-5 h-5 bg-gradient-to-br from-green-400 to-blue-400 rounded-full opacity-10 top-3/5 right-1/4"
+        ></div>
+        <div
+          class="floating-element absolute w-5 h-5 bg-gradient-to-br from-green-400 to-blue-400 rounded-full opacity-10 bottom-1/4 left-1/5"
+        ></div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-section mb-8">
+        <div class="flex justify-center items-center gap-3 mb-4">
+          <div
+            class="w-8 h-8 bg-gradient-to-br from-green-400 to-blue-400 rounded-full flex items-center justify-center text-white font-bold text-sm"
+          >
+            1
+          </div>
+          <div
+            class="w-16 h-1 bg-gradient-to-r from-green-400 to-blue-400 rounded-full"
+          ></div>
+          <div
+            class="w-8 h-8 bg-gradient-to-br from-green-400 to-blue-400 rounded-full flex items-center justify-center text-white font-bold text-sm"
+          >
+            2
+          </div>
+          <div
+            class="w-16 h-1 bg-gradient-to-r from-green-400 to-blue-400 rounded-full"
+          ></div>
+          <div
+            class="w-8 h-8 bg-gradient-to-br from-green-400 to-blue-400 rounded-full flex items-center justify-center text-white font-bold text-sm"
+          >
+            3
+          </div>
+          <div class="w-16 h-1 bg-gray-200 rounded-full"></div>
+          <div
+            class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 font-bold text-sm"
+          >
+            4
+          </div>
+        </div>
+      </div>
+
+      <!-- Header Section -->
+      <div class="header-section text-center mb-8">
+        <h1 class="text-2xl md:text-2xl font-bold text-gray-800 mb-4">
+          Step 3: Your Personalized Demo
+        </h1>
+        <p
+          class="text-gray-600 text-base md:text-lg leading-relaxed max-w-2xl mx-auto"
+        >
+          Watch as I demonstrate your product to a potential customer. This is
+          exactly how I'll present it to prospects.
+        </p>
+      </div>
+
+      <!-- Demo Iframe Container -->
+      <div class="demo-iframe-container relative mb-8">
+        <div
+          class="aspect-video bg-gray-100 rounded-2xl shadow-inner overflow-hidden relative"
+        >
+          <!-- Loading State -->
+          <div
+            class="loading-overlay absolute inset-0 bg-gradient-to-br from-blue-50 to-green-50 flex items-center justify-center z-10"
+            *ngIf="isLoading"
+          >
+            <div class="text-center">
+              <div
+                class="w-16 h-16 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center text-white text-2xl mb-4 mx-auto animate-pulse"
+              >
+                🤖
+              </div>
+              <p class="text-gray-600 font-medium">Preparing your demo...</p>
+            </div>
+          </div>
+
+          <!-- Demo Iframe -->
+          <iframe
+            #demoIframe
+            [src]="demoUrl"
+            class="w-full h-full border-0 rounded-2xl"
+            title="Interactive Demo"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+            allowfullscreen
+            loading="lazy"
+            (load)="onIframeLoad()"
+            [hidden]="isLoading"
+          ></iframe>
+        </div>
+
+        <!-- Demo Controls -->
+        <div
+          class="demo-controls absolute bottom-4 left-4 right-4 flex justify-between items-center bg-white/90 backdrop-blur-sm rounded-xl p-3 shadow-lg"
+        >
+          <div class="flex items-center gap-3">
+            <button
+              class="control-btn bg-green-500 hover:bg-green-600 text-white p-2 rounded-lg transition-all duration-300"
+              (click)="togglePlayPause()"
+              [title]="isPlaying ? 'Pause Demo' : 'Play Demo'"
+            >
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path *ngIf="!isPlaying" d="M8 5v14l11-7z" />
+                <path *ngIf="isPlaying" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+              </svg>
+            </button>
+
+            <button
+              class="control-btn bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg transition-all duration-300"
+              (click)="restartDemo()"
+              title="Restart Demo"
+            >
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div class="flex items-center gap-2 text-sm text-gray-600">
+            <span>{{ currentTime }}</span>
+            <span>/</span>
+            <span>{{ totalTime }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div
+        class="action-buttons flex flex-col sm:flex-row gap-4 justify-center items-center mb-4"
+      >
+        <button
+          type="button"
+          class="replay-btn bg-gradient-to-r from-green-400 to-blue-500 text-white font-semibold px-8 py-3 rounded-full text-base shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
+          (click)="handleReplayDemo()"
+        >
+          <span class="relative z-10">🔄 Replay Demo</span>
+          <div
+            class="btn-shine absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white to-transparent opacity-0 hover:opacity-20 transition-opacity duration-300 transform -skew-x-12"
+          ></div>
+        </button>
+
+        <button
+          type="button"
+          class="tweak-btn bg-gradient-to-r from-orange-400 to-red-500 text-white font-semibold px-8 py-3 rounded-full text-base shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
+          (click)="handleTweakDemo()"
+        >
+          <span class="relative z-10">⚙️ Tweak Demo</span>
+          <div
+            class="btn-shine absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white to-transparent opacity-0 hover:opacity-20 transition-opacity duration-300 transform -skew-x-12"
+          ></div>
+        </button>
+
+        <button
+          type="button"
+          class="deploy-btn bg-gradient-to-r from-purple-400 to-pink-500 text-white font-semibold px-8 py-3 rounded-full text-base shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
+          (click)="handleLooksDeploy()"
+        >
+          <span class="relative z-10">🚀 Looks Great - Let's Deploy</span>
+          <div
+            class="btn-shine absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white to-transparent opacity-0 hover:opacity-20 transition-opacity duration-300 transform -skew-x-12"
+          ></div>
+        </button>
+      </div>
+
+      <!-- Step Indicator -->
+      <div class="text-center">
+        <span class="text-sm text-gray-500">Step 3 of 4</span>
+      </div>
+    </div>
+
+    <!-- Chat & Notes Sidebar -->
+    <div
+      class="chat-sidebar bg-white rounded-3xl shadow-2xl p-6 max-w-sm w-full relative overflow-hidden"
+    >
+      <!-- Top gradient border -->
+      <div
+        class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 rounded-t-3xl"
+      ></div>
+
+      <!-- Demo Chat Section -->
+      <div class="demo-chat-section mb-6">
+        <div class="flex items-center gap-3 mb-4">
+          <div
+            class="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-400 rounded-xl flex items-center justify-center text-white text-lg"
+          >
+            🎭
+          </div>
+          <h3 class="text-lg font-bold text-gray-800">Demo Conversation</h3>
+        </div>
+
+        <!-- Chat Messages -->
+        <div class="chat-messages space-y-4 max-h-64 overflow-y-auto mb-4">
+          <div class="message agent-message">
+            <div class="flex items-start gap-3">
+              <div
+                class="w-8 h-8 bg-gradient-to-br from-blue-400 to-green-400 rounded-full flex items-center justify-center text-white text-sm font-bold"
+              >
+                AI
+              </div>
+              <div
+                class="message-content bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-3 flex-1"
+              >
+                <p class="text-sm text-gray-700">
+                  Welcome to Nicepay - let me show you how we simplify your
+                  financial ops.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="message user-message">
+            <div class="flex items-start gap-3 flex-row-reverse">
+              <div
+                class="w-8 h-8 bg-gradient-to-br from-gray-400 to-gray-600 rounded-full flex items-center justify-center text-white text-sm font-bold"
+              >
+                U
+              </div>
+              <div
+                class="message-content bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-3 flex-1"
+              >
+                <p class="text-sm text-gray-700">
+                  Is it built for SMEs or more for enterprises?
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="message agent-message">
+            <div class="flex items-start gap-3">
+              <div
+                class="w-8 h-8 bg-gradient-to-br from-blue-400 to-green-400 rounded-full flex items-center justify-center text-white text-sm font-bold"
+              >
+                AI
+              </div>
+              <div
+                class="message-content bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-3 flex-1"
+              >
+                <p class="text-sm text-gray-700">
+                  Great question. While we serve both, most of our customers are
+                  fast-growing SMEs.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="message user-message">
+            <div class="flex items-start gap-3 flex-row-reverse">
+              <div
+                class="w-8 h-8 bg-gradient-to-br from-gray-400 to-gray-600 rounded-full flex items-center justify-center text-white text-sm font-bold"
+              >
+                U
+              </div>
+              <div
+                class="message-content bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-3 flex-1"
+              >
+                <p class="text-sm text-gray-700">
+                  Can I see how invoicing works?
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="message agent-message">
+            <div class="flex items-start gap-3">
+              <div
+                class="w-8 h-8 bg-gradient-to-br from-blue-400 to-green-400 rounded-full flex items-center justify-center text-white text-sm font-bold"
+              >
+                AI
+              </div>
+              <div
+                class="message-content bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-3 flex-1"
+              >
+                <p class="text-sm text-gray-700">
+                  Sure. Here's a quick walkthrough of the invoicing dashboard.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notes Section -->
+      <div class="notes-section">
+        <div class="flex items-center gap-3 mb-4">
+          <div
+            class="w-10 h-10 bg-gradient-to-br from-orange-400 to-red-400 rounded-xl flex items-center justify-center text-white text-lg"
+          >
+            📝
+          </div>
+          <h3 class="text-lg font-bold text-gray-800">
+            Leave a Note for Demo Genie
+          </h3>
+        </div>
+
+        <p class="text-sm text-gray-600 mb-4">
+          If something doesn't feel right, add a comment and we'll adjust it in
+          the next version.
+        </p>
+
+        <div class="note-input-section">
+          <textarea
+            [(ngModel)]="noteText"
+            placeholder="e.g. Add a testimonial quote here..."
+            rows="3"
+            class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-all duration-300 text-gray-700 text-sm resize-none bg-gray-50 hover:bg-white hover:border-orange-300 mb-4"
+          >
+          </textarea>
+
+          <button
+            type="button"
+            class="submit-note-btn bg-gradient-to-r from-green-400 to-blue-500 text-white font-semibold px-6 py-3 rounded-xl text-sm shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 w-full mb-4"
+            (click)="submitNote()"
+            [disabled]="!noteText.trim()"
+          >
+            Submit
+          </button>
+        </div>
+
+        <!-- Comment History -->
+        <div class="comment-history">
+          <div class="flex items-center gap-2 mb-3">
+            <div
+              class="w-6 h-6 bg-gray-400 rounded-full flex items-center justify-center text-white text-xs"
+            >
+              📝
+            </div>
+            <h4 class="text-sm font-bold text-gray-700">Comment History</h4>
+          </div>
+
+          <div class="comment-list space-y-2">
+            <div
+              class="comment-item p-3 bg-gray-50 rounded-lg"
+              *ngFor="let comment of commentHistory"
+            >
+              <p class="text-xs text-gray-600 mb-1">
+                {{ comment.timestamp | date : "short" }}
+              </p>
+              <p class="text-sm text-gray-700">{{ comment.text }}</p>
+            </div>
+
+            <div
+              class="no-comments text-center text-gray-500 text-sm py-4"
+              *ngIf="commentHistory.length === 0"
+            >
+              Previously submitted comments will appear here.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

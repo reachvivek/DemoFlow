@@ -1,0 +1,264 @@
+<div
+  class="min-h-screen bg-gradient-to-br from-blue-50 via-green-50 to-emerald-50 flex items-center justify-center p-5 relative"
+>
+  <!-- Floating background elements -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div
+      class="floating-element absolute w-5 h-5 bg-gradient-to-br from-green-400 to-blue-400 rounded-full opacity-10 top-1/4 left-1/4"
+    ></div>
+    <div
+      class="floating-element absolute w-5 h-5 bg-gradient-to-br from-green-400 to-blue-400 rounded-full opacity-10 top-3/5 right-1/4"
+    ></div>
+    <div
+      class="floating-element absolute w-5 h-5 bg-gradient-to-br from-green-400 to-blue-400 rounded-full opacity-10 bottom-1/4 left-1/5"
+    ></div>
+  </div>
+
+  <!-- Main Container -->
+  <div
+    class="welcome-container bg-white rounded-3xl shadow-2xl p-8 md:p-12 text-center max-w-2xl w-full relative overflow-hidden"
+  >
+    <!-- Top Border -->
+    <div
+      class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 rounded-t-3xl"
+    ></div>
+
+    <!-- Progress Bar -->
+    <div class="progress-section mb-8">
+      <div class="flex justify-center items-center gap-3 mb-4">
+        <div
+          class="w-8 h-8 bg-gradient-to-br from-green-400 to-blue-400 rounded-full flex items-center justify-center text-white font-bold text-sm"
+        >
+          1
+        </div>
+        <div class="w-16 h-1 bg-gray-200 rounded-full"></div>
+        <div
+          class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 font-bold text-sm"
+        >
+          2
+        </div>
+        <div class="w-16 h-1 bg-gray-200 rounded-full"></div>
+        <div
+          class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 font-bold text-sm"
+        >
+          3
+        </div>
+        <div class="w-16 h-1 bg-gray-200 rounded-full"></div>
+        <div
+          class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 font-bold text-sm"
+        >
+          4
+        </div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div class="logo-section mb-8">
+      <h1 class="text-2xl md:text-2xl font-bold text-gray-800 mb-4">
+        Step 1: Feed Me Your Product Data
+      </h1>
+      <p class="text-lg text-gray-600 max-w-md mx-auto">
+        To begin building your AI-powered demo, let Demo Genie understand your
+        product from the source.
+      </p>
+    </div>
+
+    <!-- Form -->
+    <form (ngSubmit)="analyzeProduct()" class="space-y-6">
+      <!-- Website URL Input -->
+      <div class="form-group text-left">
+        <label
+          for="websiteUrl"
+          class="block text-sm font-medium text-gray-700 mb-2"
+        >
+          Website URL <span class="text-red-500 font-bold">*</span>
+        </label>
+
+        <!-- Flex container to hold input and icon together -->
+        <div class="relative">
+          <div class="flex items-center w-full">
+            <input
+              type="url"
+              id="websiteUrl"
+              [(ngModel)]="productData.websiteUrl"
+              name="websiteUrl"
+              required
+              #websiteUrlInput="ngModel"
+              class="form-input w-full px-6 py-4 pr-12 bg-gray-50 border border-gray-200 rounded-2xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400 transition-all"
+              [class.error]="websiteUrlInput.invalid && websiteUrlInput.touched"
+              [class.valid]="websiteUrlInput.valid && websiteUrlInput.touched"
+              placeholder="https://your-product-site.com"
+            />
+            <!-- Icon placed absolutely but inside the input field's padding area -->
+            <div
+              class="absolute right-4"
+              style="top: 50%; transform: translateY(-50%)"
+            >
+              <div
+                class="tooltip"
+                data-tooltip="Enter your product's main website"
+              >
+                <svg
+                  class="w-5 h-5 text-gray-400 hover:text-green-500 cursor-help transition-colors"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          *ngIf="websiteUrlInput.invalid && websiteUrlInput.touched"
+          class="text-red-500 text-sm mt-1"
+        >
+          Please enter a valid website URL
+        </div>
+      </div>
+
+      <!-- Expandable: Optional Info -->
+      <div class="text-left">
+        <button
+          type="button"
+          (click)="toggleOptionalSection()"
+          class="flex items-center text-green-600 font-medium hover:text-green-700 hover:underline focus:outline-none transition-all"
+        >
+          <span
+            class="mr-2 text-lg font-bold transition-transform duration-300"
+            [class.rotated]="isOptionalSectionExpanded"
+            >+</span
+          >
+          <span>{{
+            isOptionalSectionExpanded
+              ? "Hide additional details"
+              : "Add more details (optional)"
+          }}</span>
+        </button>
+
+        <div
+          class="optional-section mt-4 space-y-5"
+          [class.expanded]="isOptionalSectionExpanded"
+        >
+          <!-- Product Description -->
+          <div class="fade-in">
+            <label
+              for="productDescription"
+              class="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Product Description
+            </label>
+            <textarea
+              id="productDescription"
+              [(ngModel)]="productData.description"
+              name="productDescription"
+              rows="3"
+              class="form-input w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400 transition-all resize-none"
+              placeholder="What does your product do? Key features or target audience?"
+            ></textarea>
+          </div>
+
+          <!-- Presentation Upload -->
+          <div class="fade-in">
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Upload Presentation
+            </label>
+            <div
+              class="file-drop-zone cursor-pointer px-4 py-3 bg-gray-50 border-2 border-dashed border-gray-200 rounded-xl text-gray-500 hover:bg-gray-100 transition text-center"
+              [class.has-file]="selectedPresentationFile"
+              (click)="triggerFileUpload('presentation')"
+              (dragover)="onDragOver($event)"
+              (dragleave)="onDragLeave($event)"
+              (drop)="onDrop($event, 'presentation')"
+            >
+              <div class="flex items-center justify-center space-x-2">
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                  />
+                </svg>
+                <span>
+                  {{
+                    selectedPresentationFile
+                      ? selectedPresentationFile.name
+                      : "Drop files here or click to upload (.pdf, .ppt, .pptx)"
+                  }}
+                </span>
+              </div>
+            </div>
+            <input
+              type="file"
+              #presentationInput
+              accept=".pdf,.ppt,.pptx"
+              class="hidden"
+              (change)="onFileSelected($event, 'presentation')"
+            />
+          </div>
+
+          <!-- Demo Video URL -->
+          <div class="fade-in">
+            <label
+              for="videoUrl"
+              class="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Demo Video URL
+            </label>
+            <input
+              type="url"
+              id="videoUrl"
+              [(ngModel)]="productData.videoUrl"
+              name="videoUrl"
+              class="form-input w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400 transition-all"
+              placeholder="https://loom.com/your-demo or YouTube link"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Analyze Button -->
+      <div class="pt-4">
+        <button
+          type="submit"
+          class="analyze-btn bg-gradient-to-r from-green-400 to-blue-500 text-white font-semibold px-10 py-4 rounded-full text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:transform-none"
+          [disabled]="!isFormValid()"
+          [class.loading]="isLoading"
+        >
+          <span [class.opacity-0]="isLoading">
+            {{ isLoading ? "Analyzing..." : "Analyze My Product" }}
+          </span>
+        </button>
+      </div>
+
+      <!-- Status Messages -->
+      <div
+        *ngIf="statusMessage"
+        class="mt-4 p-4 rounded-lg"
+        [class.status-success]="statusMessage.type === 'success'"
+        [class.status-error]="statusMessage.type === 'error'"
+        [class.status-info]="statusMessage.type === 'info'"
+      >
+        {{ statusMessage.text }}
+      </div>
+    </form>
+
+    <!-- Step Indicator -->
+    <div class="text-center mt-6">
+      <span class="text-sm text-gray-500">Step 1 of 4</span>
+    </div>
+  </div>
+</div>

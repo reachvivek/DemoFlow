@@ -1,0 +1,396 @@
+/* Floating Elements Animation */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(180deg);
+  }
+}
+
+.floating-element {
+  animation: float 6s ease-in-out infinite;
+}
+
+.floating-element:nth-child(1) {
+  animation-delay: 0s;
+}
+.floating-element:nth-child(2) {
+  animation-delay: 2s;
+}
+.floating-element:nth-child(3) {
+  animation-delay: 4s;
+}
+
+/* Container Entrance Animations */
+.demo-viewer-container {
+  animation: slideInLeft 0.6s ease-out;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.chat-sidebar {
+  animation: slideInRight 0.6s ease-out 0.3s both;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Header Animation */
+.header-section {
+  animation: fadeInDown 0.8s ease-out 0.2s both;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Demo Iframe Container */
+.demo-iframe-container {
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading Overlay */
+.loading-overlay {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Demo Controls */
+.demo-controls {
+  animation: slideInUp 0.5s ease-out 0.8s both;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.control-btn {
+  transition: all 0.3s ease;
+}
+
+.control-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.control-btn:active {
+  transform: scale(0.95);
+}
+
+/* Action Buttons */
+.action-buttons {
+  animation: fadeInUp 0.6s ease-out 0.6s both;
+}
+
+.replay-btn,
+.tweak-btn,
+.deploy-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.replay-btn:hover,
+.tweak-btn:hover,
+.deploy-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.replay-btn:active,
+.tweak-btn:active,
+.deploy-btn:active {
+  transform: translateY(0);
+}
+
+/* Button Shine Effect */
+.btn-shine {
+  transform: translateX(-100%) skewX(-12deg);
+  transition: transform 0.6s;
+}
+
+.replay-btn:hover .btn-shine,
+.tweak-btn:hover .btn-shine,
+.deploy-btn:hover .btn-shine {
+  transform: translateX(100%) skewX(-12deg);
+}
+
+/* Chat Messages */
+.chat-messages {
+  animation: fadeIn 0.5s ease-out 0.8s both;
+}
+
+.message {
+  animation: slideInMessage 0.4s ease-out both;
+}
+
+.message:nth-child(1) {
+  animation-delay: 1s;
+}
+.message:nth-child(2) {
+  animation-delay: 1.1s;
+}
+.message:nth-child(3) {
+  animation-delay: 1.2s;
+}
+.message:nth-child(4) {
+  animation-delay: 1.3s;
+}
+.message:nth-child(5) {
+  animation-delay: 1.4s;
+}
+
+@keyframes slideInMessage {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-content {
+  transition: all 0.3s ease;
+}
+
+.message-content:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Notes Section */
+.notes-section {
+  animation: fadeInUp 0.5s ease-out 1s both;
+}
+
+.note-input-section textarea {
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.note-input-section textarea:focus {
+  box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.1);
+  transform: translateY(-1px);
+}
+
+.note-input-section textarea:hover {
+  border-color: #fb923c;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.submit-note-btn {
+  transition: all 0.3s ease;
+}
+
+.submit-note-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(74, 222, 128, 0.3);
+}
+
+.submit-note-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.submit-note-btn:disabled:hover {
+  transform: none;
+  box-shadow: 0 4px 15px rgba(74, 222, 128, 0.2);
+}
+
+/* Comment History */
+.comment-history {
+  animation: fadeIn 0.4s ease-out 1.2s both;
+}
+
+.comment-item {
+  transition: all 0.3s ease;
+  animation: slideInUp 0.3s ease-out both;
+}
+
+.comment-item:hover {
+  transform: translateX(3px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Chat Messages Custom Scrollbar */
+.chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Progress Bar Enhancement */
+.progress-section {
+  animation: fadeInDown 0.6s ease-out 0.1s both;
+}
+
+/* Focus States for Accessibility */
+.control-btn:focus,
+.replay-btn:focus,
+.tweak-btn:focus,
+.deploy-btn:focus,
+.submit-note-btn:focus {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 1280px) {
+  .main-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .chat-sidebar {
+    max-width: 100%;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .demo-viewer-container {
+    padding: 1rem;
+  }
+
+  .chat-sidebar {
+    padding: 1rem;
+  }
+
+  .header-section h1 {
+    font-size: 1.5rem;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .replay-btn,
+  .tweak-btn,
+  .deploy-btn {
+    width: 100%;
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 640px) {
+  .demo-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .demo-controls .flex:first-child {
+    justify-content: center;
+  }
+}
+
+/* Loading State for Iframe */
+.loading-overlay .animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Enhanced Shadow Effects */
+.demo-iframe-container .aspect-video {
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.demo-iframe-container iframe {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover Effects for Interactive Elements */
+.demo-chat-section,
+.notes-section {
+  transition: all 0.3s ease;
+}
+
+.demo-chat-section:hover,
+.notes-section:hover {
+  transform: translateY(-2px);
+}
+
+/* Input Placeholder Styling */
+.note-input-section textarea::placeholder {
+  color: #9ca3af;
+  opacity: 1;
+}

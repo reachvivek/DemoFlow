@@ -11,6 +11,7 @@ import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 })
 export class ReadyToGo implements OnInit {
   isBrowser: boolean = false;
+
   // Embed code configuration
   embedCode: string = `<iframe src="https://demo-genie.ai/embed/your-demo-id" width="100%" height="600" frameborder="0" allowfullscreen></iframe>`;
   isCopied: boolean = false;
@@ -84,13 +85,18 @@ export class ReadyToGo implements OnInit {
   ngOnInit(): void {
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.updateEmbedCode();
-    this.simulateRealTimeData();
+    if (this.isBrowser) {
+      this.simulateRealTimeData();
+    }
   }
 
   /**
    * Copy embed code to clipboard
    */
   copyEmbedCode(): void {
+    if (!this.isBrowser) {
+      return;
+    }
     navigator.clipboard
       .writeText(this.embedCode)
       .then(() => {
@@ -115,6 +121,9 @@ export class ReadyToGo implements OnInit {
    * Fallback copy method for older browsers
    */
   private fallbackCopyTextToClipboard(text: string): void {
+    if (!this.isBrowser) {
+      return;
+    }
     const textArea = document.createElement('textarea');
     textArea.value = text;
     textArea.style.position = 'fixed';
@@ -148,6 +157,9 @@ export class ReadyToGo implements OnInit {
    * Show copy success animation
    */
   private showCopySuccessAnimation(): void {
+    if (!this.isBrowser) {
+      return;
+    }
     const copyBtn = document.querySelector('.copy-embed-btn');
     if (copyBtn) {
       copyBtn.classList.add('copy-success');
@@ -196,6 +208,9 @@ export class ReadyToGo implements OnInit {
    * Go live with the demo
    */
   goLive(): void {
+    if (!this.isBrowser) {
+      return;
+    }
     // Here you would typically make an API call to activate the demo
     console.log('Demo is now live!');
 
@@ -287,6 +302,9 @@ export class ReadyToGo implements OnInit {
    * Download embed code as file
    */
   downloadEmbedCode(): void {
+    if (!this.isBrowser) {
+      return;
+    }
     const element = document.createElement('a');
     const file = new Blob([this.embedCode], { type: 'text/html' });
     element.href = URL.createObjectURL(file);
@@ -300,6 +318,9 @@ export class ReadyToGo implements OnInit {
    * Preview demo in new window
    */
   previewDemo(): void {
+    if (!this.isBrowser) {
+      return;
+    }
     const previewUrl = this.generateShareableLink();
     window.open(previewUrl, '_blank', 'width=800,height=600');
   }
